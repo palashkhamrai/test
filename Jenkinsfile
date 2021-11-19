@@ -7,13 +7,21 @@ pipeline {
             agent any
 
             steps {
-                echo 'Hello, '
+                def filePath = readFile "https://github.com/palashkhamrai/test/blob/main/script.sh"                   
 
-                sh '''#!/bin/bash
+                ##To read file line by line ###
 
-                    echo "Hello from bash"
-                    echo "Who I'm $SHELL"
-                '''
+                def lines = filePath.readLines() 
+
+                ##To iterate and run Jenkins Jobs one by one ####
+
+                    for (line in lines) {                                            
+                      build(job: "$line/branchName",
+                        parameters:
+                        [string(line)
+                        ]
+                    )
+                        } 
             }
         }
     }
