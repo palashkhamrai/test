@@ -14,7 +14,7 @@ environment
         script
         {
           sh 'ls -al'
-          sh 'script.sh'
+          sh 'sudo sh script.sh'
         }
       }
     } 
