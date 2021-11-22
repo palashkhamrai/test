@@ -13,6 +13,5 @@ else
   cd $DIR
 fi
 
-echo "Hello from bash22345"
 echo "Who I'm $SHELL"
 echo "Who I'm $SHELL"
