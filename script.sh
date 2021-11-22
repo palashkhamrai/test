@@ -13,6 +13,6 @@ else
   cd $DIR
 fi
 
-echo "Hello from bash"
+echo "Hello from bash2"
 echo "Who I'm $SHELL"
 
