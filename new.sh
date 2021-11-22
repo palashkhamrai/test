@@ -13,4 +13,4 @@ else
   cd $DIR
 fi
 
-echo "Hello from palash12345"
+echo "Hello from palash12"
