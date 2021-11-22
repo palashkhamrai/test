@@ -14,3 +14,4 @@ else
 fi
 
 echo "Hello from multiple"
+echo "Hello from multiple"
