@@ -18,15 +18,5 @@ environment
         }
       }
     } 
- stage('Save Build Log') 
-    {
-      steps 
-      {
-        script 
-        {
-          sh "curl ${BUILD_URL}consoleText --output ${BUILD_NUMBER}.log"
-        }
-      }
-    }
   }
 }
