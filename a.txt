@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     stages {
-        stage('Perform Action rahul') {
             steps {
                 // Go to the specified directory
                 sh 'cd /path/to/directory'
