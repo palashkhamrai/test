@@ -3,7 +3,7 @@ pipeline {
 
     stages {
             steps {
-                // Go to the specified directory rahul
+                // Go to the specified directory rahul solaja
                 sh 'cd /path/to/directory'
                 // Perform some action in the directory
                 sh './some-script.sh'
