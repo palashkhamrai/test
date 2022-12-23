@@ -1,0 +1,84 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Perform Action') {
+            steps {
+                // Go to the specified directory
+                sh 'cd /path/to/directory'
+                // Perform some action in the directory
+                sh './some-script.sh'
+            }
+        }
+        stage('Delete JAR Files') {
+            steps {
+                // Go back to the root directory
+                sh 'cd /'
+                // Delete all JAR files in the specified directory
+                sh 'find /path/to/directory -name "*.jar" -type f -delete'
+            }
+        }
+    }
+}
+
+
+In this Jenkinsfile, the first stage uses the cd command to change to the specified directory and performs some action using 
+the ./some-script.sh command. The second stage uses the find command to search for .jar files in the specified directory and delete them.
+
+i want a jenkins file that will deploy 13 different api but if i chose 5 api in run time it will run only those 5 api 
+and others are skip but still showing in pipeline view, in parameter i want checkbox and one more checkbox i want for select 
+all other checkbox
+
+pipeline {
+    agent any
+
+    parameters {
+        // Use checkboxes to allow the user to select one or more APIs
+        checkbox(name: 'APIs', defaultValue: ['API1', 'API2', 'API3', 'API4', 'API5', 'API6', 'API7', 'API8', 'API9', 'API10', 'API11', 'API12', 'API13'], description: 'Select the APIs to deploy')
+        // Add a "Select All" checkbox
+        booleanParam(name: 'SelectAll', defaultValue: false, description: 'Select all APIs')
+    }
+
+    stages {
+        stage('Deploy APIs') {
+            steps {
+                script {
+                    // Convert the checkbox values to lists of strings
+                    def apiList = params.APIs.toString().split(',')
+                    def allAPIs = ['API1', 'API2', 'API3', 'API4', 'API5', 'API6', 'API7', 'API8', 'API9', 'API10', 'API11', 'API12', 'API13']
+
+                    // If the "Select All" checkbox is selected, use all APIs
+                    if (params.SelectAll) {
+                        apiList = allAPIs
+                    }
+
+                    // Run the deployment steps for each API in parallel
+                    parallel allAPIs.collectEntries { apiName ->
+                        "${apiName}": {
+                            // Check if the current API is selected for deployment
+                            if (apiList.contains(apiName)) {
+                                // Add the deployment steps for the selected API here
+                                // For example:
+                                sh "echo Deploying ${apiName}"
+                                sh "./deploy-api.sh ${apiName}"
+                            } else {
+                                // If the API is not selected, mark the step as skipped rahul
+                                step([$class: 'WsCleanup']) {
+                                    echo "Skipping ${apiName}"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+To use this Jenkinsfile, you can create a new Jenkins job and specify the Jenkinsfile in the "Pipeline" 
+section of the job configuration. Then, when you run the job, you can select the APIs you want to deploy using the 
+checkboxes in the job parameters. You can also use the "Select All" checkbox to select all APIs at once.
+
+In the pipeline view, you will see all APIs listed, with a "skipped" status for the APIs that were not selected for deployment.
+
