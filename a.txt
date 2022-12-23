@@ -12,7 +12,7 @@ pipeline {
         }
         stage('Delete JAR Files') {
             steps {
-                // Go back to the root directory rahul solaja
+                // Go back to the root directory palash 
                 sh 'cd /'
                 // Delete all JAR files in the specified directory
                 sh 'find /path/to/directory -name "*.jar" -type f -delete'
