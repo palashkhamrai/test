@@ -62,7 +62,7 @@ pipeline {
                                 sh "echo Deploying ${apiName}"
                                 sh "./deploy-api.sh ${apiName}"
                             } else {
-                                // If the API is not selected, mark the step as skipped palash
+                                // If the API is not selected, mark the step as skipped rahul solaja
                                 step([$class: 'WsCleanup']) {
                                     echo "Skipping ${apiName}"
                                 }
